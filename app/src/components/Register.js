@@ -7,7 +7,8 @@ const Register = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
+    console.log (user.username)
+    console.log (user.password)
     fetch(
       "http://fitnesstrac-kr.herokuapp.com/api/users/register",
       {
@@ -15,7 +16,9 @@ const Register = (props) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user }),
+        body: JSON.stringify({ 
+          username: user.username,
+          password: user.password})
       }
     )
       .then((response) => response.json())
