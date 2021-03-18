@@ -2,7 +2,7 @@ import './App.css';
 
 import { BrowserRouter as Router, Link } from "react-router-dom"
 import {Switch, Route} from "react-router"
-import {default as MakeRoutine} from "./components/routines/CreateRoutine"
+import {default as MakeRoutine} from "./components/routines/MakeRoutine"
 
 function App() {
   return (
