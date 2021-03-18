@@ -2,7 +2,7 @@ import './App.css';
 
 import { BrowserRouter as Router, Link } from "react-router-dom"
 import {Switch, Route} from "react-router"
-
+import {default as MakeRoutine} from "./components/routines/CreateRoutine"
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
           <Link className="Link" to= '/activites'>Activites</Link>
           <Link className="Link" to= '/login'>Login</Link>
           <Link className="Link" to= '/register'>Sign Up</Link>
+          <Link className="Link" to= '/createRoutine'>Create Routine</Link>
           {/* Link for log out which returns home '/' */}
         </div>
       </nav>
@@ -38,7 +39,10 @@ function App() {
           </Route>
           <Route path='/activities'>
             {/* Activities component */}
-          </Route>  
+          </Route>
+          <Route path='/createRoutine'>
+            <MakeRoutine />
+          </Route> 
         </Switch>  
       </main>
     </Router>
