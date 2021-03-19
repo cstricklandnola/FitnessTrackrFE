@@ -68,7 +68,11 @@ function App() {
            {/*  ) : null} */}
           </Route>
           <Route path='/Register'>
-            {/* {!loggedIn ? */} <Register setAuthorized={setAuthorized} /> {/* : null} */}
+            {/* {!loggedIn ? */} <Register
+             setAuthorized={setAuthorized} 
+             loggedIn={loggedIn}
+             setLoggedIn={setLoggedIn}
+             /> {/* : null} */}
           </Route>
           <Route path='/routines'>
             {/* Routines component */}
