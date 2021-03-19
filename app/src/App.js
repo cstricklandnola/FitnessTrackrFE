@@ -2,7 +2,7 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Link, Switch, Route} from "react-router-dom"
 import {default as MakeRoutine} from "./components/routines/MakeRoutine"
-import {getToken, cleartoken} from "./auth"
+import {getToken, clearToken} from "./auth"
 
 import {
   Login,
@@ -37,11 +37,17 @@ function App() {
           <Link className="Link" to= '/routines'>Routines</Link>
           <Link className="Link" to= '/myRoutines'>My Routines</Link>
           <Link className="Link" to= '/activites'>Activites</Link>
-          {!authorized ? (<Link className="Link" to= '/Login'>Login</Link>) : null}
-          {!authorized ? (<Link className="Link" to= '/Register'>Sign Up</Link>) : null}
-          {authorized ? (<Link className="Link" to= '/Logout'>Sign Up</Link>) : null}
-          <Link className="Link" to= '/createRoutine'>Create Routine</Link>
-          {/* Link for log out which returns home '/' */}
+          {/* !authorized  */ !loggedIn ? (<Link className="Link" to= '/Login'>Login</Link>) : null}
+          {/* !authorized  */ !loggedIn ? (<Link className="Link" to= '/Register'>Sign Up</Link>) : null}
+          {loggedIn ? <Link className="Link" onClick={() => {
+                        clearToken();
+                        //setUsername(null);
+                        setLoggedIn(null);
+                        setUserData(null)
+                        setAuthorized(null)
+                        setCurrentUser(null)
+                    }}
+                        to='/'>Log Out</Link> : null}
         </div>
       </nav>
       <main>
@@ -50,7 +56,7 @@ function App() {
             {/* HomePage component  */}
           </Route>
           <Route path='/Login'>
-          {!authorized ? (
+         {/*  {!authorized ? ( */}
               <Login
                 loggedIn={loggedIn}
                 setLoggedIn={setLoggedIn}
@@ -59,17 +65,10 @@ function App() {
                 setAuthorized={setAuthorized}
                 authorized={authorized}
               />
-            ) : null}
+           {/*  ) : null} */}
           </Route>
           <Route path='/Register'>
-            {!authorized ? <Register setAuthorized={setAuthorized} /> : null}
-          </Route>
-          <Route path="/LogOut">
-            <LogOut
-              setCurrentUser={setCurrentUser}
-              setAuthorized={setAuthorized}
-              authorized={authorized}
-            />
+            {/* {!loggedIn ? */} <Register setAuthorized={setAuthorized} /> {/* : null} */}
           </Route>
           <Route path='/routines'>
             {/* Routines component */}
