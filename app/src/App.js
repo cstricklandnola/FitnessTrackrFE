@@ -3,11 +3,12 @@ import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Link, Switch, Route} from "react-router-dom"
 import {default as MakeRoutine} from "./components/routines/MakeRoutine"
 import {getToken, clearToken} from "./auth"
-
+import{fetchUserData} from "./api"
 import {
   Login,
   LogOut,
-  Register
+  Register,
+  MyRoutines
 } from "./components"
 
 function App() {
@@ -19,8 +20,9 @@ function App() {
   useEffect(async () => {
     if (loggedIn) {
         try {
-            //const data = await fetchUserData();
-            //setCurrentUser(data.username);
+            const data = await fetchUserData();
+            setUserData(data) 
+            setCurrentUser(data.username);
 
         } catch (error) {
             console.error(error);
@@ -78,7 +80,7 @@ function App() {
             {/* Routines component */}
           </Route>
           <Route path='/myRoutines'>
-            {/* MyRoutines component */}
+             <MyRoutines />
           </Route>
           <Route path='/activities'>
             {/* Activities component */}
