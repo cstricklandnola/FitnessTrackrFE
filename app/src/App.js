@@ -22,6 +22,7 @@ function App() {
         try {
             const data = await fetchUserData();
             setUserData(data) 
+            console.log(data)
             setCurrentUser(data.username);
 
         } catch (error) {
@@ -80,7 +81,10 @@ function App() {
             {/* Routines component */}
           </Route>
           <Route path='/myRoutines'>
-             <MyRoutines />
+             <MyRoutines 
+             loggedIn={loggedIn}
+             currentUser={currentUser}
+              />
           </Route>
           <Route path='/activities'>
             {/* Activities component */}

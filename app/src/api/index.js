@@ -20,3 +20,21 @@ export const fetchUserData = async () => {
         console.error(error);
     }
 }
+
+export const fetchUserRoutines = async (user) => {
+    try {
+        const response = await fetch(`${baseURL}/users/${user}/routines`, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+
+        return data
+
+    } catch (error) {
+        console.error(error);
+    }    
+
+
+}
