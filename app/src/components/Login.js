@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import { storeToken } from "../auth";
 
 const Login = (props) => {
   const [user, setUser] = useState("");
-  const { setAuthorized, setCurrentUser, currentUser } = props;
+  const { setAuthorized, setCurrentUser, currentUser, loggedIn, setLoggedIn } = props;
 
   function helperHandleSubmit(e) {
     setUser({ ...user, password: e.target.value });
     setCurrentUser(user.username);
-    console.log(currentUser);
+    /* console.log(currentUser); */
   }
 
   const handleSubmit = (evt) => {
@@ -19,16 +20,18 @@ const Login = (props) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user }),
+        body: JSON.stringify({ username: user.username, password: user.password }),
       }
     )
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
 
-        if (result.success) {
+        if (result.message === "you're logged in!") {
           alert("Logged in.");
-          setAuthorized(result.data.token);
+          setAuthorized(result.token)
+          setLoggedIn(result.token)
+          storeToken(result.token);
         } else {
           alert("Failed to login.");
           

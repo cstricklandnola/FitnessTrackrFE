@@ -1,18 +1,33 @@
 import './App.css';
-import React, {useState} from 'react';
-import { BrowserRouter as Router, Link } from "react-router-dom"
-import {Switch, Route} from "react-router"
+import React, {useState, useEffect} from 'react';
+import { BrowserRouter as Router, Link, Switch, Route} from "react-router-dom"
 import {default as MakeRoutine} from "./components/routines/MakeRoutine"
+import {getToken, cleartoken} from "./auth"
+
 import {
   Login,
   LogOut,
   Register
-  
-  
 } from "./components"
+
 function App() {
   const [authorized, setAuthorized] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
+  const [loggedIn, setLoggedIn] = useState(getToken());
+  const [userData, setUserData] = useState()
+  
+  useEffect(async () => {
+    if (loggedIn) {
+        try {
+            //const data = await fetchUserData();
+            //setCurrentUser(data.username);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+  }, [loggedIn])
+
   return (
     <Router>
       <nav className="navBar">
@@ -37,6 +52,8 @@ function App() {
           <Route path='/Login'>
           {!authorized ? (
               <Login
+                loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn}
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
                 setAuthorized={setAuthorized}
