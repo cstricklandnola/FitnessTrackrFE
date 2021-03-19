@@ -21,9 +21,9 @@ const MyRoutines = ({loggedIn, currentUser}) => {
         return(
             <div>
             <h1>Welcome {currentUser}</h1>
-            {userRoutines?.map((routine, index) => {
+            {userRoutines?.map((routine, index) => { // ADD ACTIVITIES
                 return (
-                   <div>
+                   <div key={index}>
                         <h2>{routine.name}</h2>
                         <p>{routine.goal}</p>  
                    </div> 

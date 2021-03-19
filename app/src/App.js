@@ -8,7 +8,8 @@ import {
   Login,
   LogOut,
   Register,
-  MyRoutines
+  MyRoutines,
+  Routines
 } from "./components"
 
 function App() {
@@ -78,7 +79,7 @@ function App() {
              /> {/* : null} */}
           </Route>
           <Route path='/routines'>
-            {/* Routines component */}
+            <Routines />
           </Route>
           <Route path='/myRoutines'>
              <MyRoutines 

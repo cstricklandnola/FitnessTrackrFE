@@ -38,3 +38,35 @@ export const fetchUserRoutines = async (user) => {
 
 
 }
+
+export const createRoutines = async () => {
+    /* try {
+        const response = await fetch(`${baseURL}/users/${user}/routines`, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+
+        return data
+
+    } catch (error) {
+        console.error(error);
+    }     */
+}
+
+export const fetchAllRoutines = async () => {
+    try {
+        const response = await fetch(`${baseURL}/routines`, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+
+        return data
+
+    } catch (error) {
+        console.error(error);
+    }    
+}
