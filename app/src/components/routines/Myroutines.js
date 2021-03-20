@@ -3,25 +3,29 @@ import {useEffect, useState} from "react"
 import {fetchUserRoutines} from "../../api"
 const MyRoutines = ({loggedIn, currentUser}) => {
     const [userRoutines, setUserRoutines] = useState()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const getUserRoutines = async () => {
+    
         try{
-            const routines = await fetchUserRoutines("albert"); //<--change to currentUser
+            const routines  = await fetchUserRoutines(currentUser); //<--change to currentUser
             console.log(routines)
-            setUserRoutines(routines)
+            //setUserRoutines(routines)
         }catch (error) {console.error(error)
         }
     }
 
-    useEffect( getUserRoutines, []);
+    useEffect(getUserRoutines, [])
     
 
     if(!loggedIn){
         return <Redirect to = "/" />
-    }else{
+    }else{ 
         return(
+            
             <div>
+                {console.log(currentUser)}
             <h1>Welcome {currentUser}</h1>
-            {userRoutines?.map((routine, index) => { // ADD ACTIVITIES
+            {userRoutines ? userRoutines?.map((routine, index) => { // ADD ACTIVITIES
                 return (
                    <div key={index}>
                         <h2>{routine.name}</h2>
@@ -32,7 +36,7 @@ const MyRoutines = ({loggedIn, currentUser}) => {
             
             
             
-            })}
+            }):<h2>Looks like you don't have any routines</h2>}
             </div>
         )
     }

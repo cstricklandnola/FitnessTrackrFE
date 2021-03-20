@@ -6,7 +6,7 @@ const baseURL ='https://fitnesstrac-kr.herokuapp.com/api/'
 
 export const fetchUserData = async () => {
     try {
-        const response = await fetch(`${baseURL}/users/me`, {
+        const response = await fetch(`${baseURL}users/me`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -21,11 +21,12 @@ export const fetchUserData = async () => {
     }
 }
 
-export const fetchUserRoutines = async (user) => {
+export const fetchUserRoutines = async (username) => {
     try {
-        const response = await fetch(`${baseURL}/users/${user}/routines`, {
+        const response = await fetch(`${baseURL}users/${username}/routines`, {
             headers: {
                 'Content-Type': 'application/json',
+                
             }
         });
         const data = await response.json();
@@ -57,7 +58,7 @@ export const createRoutines = async () => {
 
 export const fetchAllRoutines = async () => {
     try {
-        const response = await fetch(`${baseURL}/routines`, {
+        const response = await fetch(`${baseURL}routines`, {
             headers: {
                 'Content-Type': 'application/json',
             }

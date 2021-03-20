@@ -12,19 +12,21 @@ import {
   Routines
 } from "./components"
 
-function App() {
+const App = () => {
   const [authorized, setAuthorized] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
   const [loggedIn, setLoggedIn] = useState(getToken());
-  const [userData, setUserData] = useState()
   
   useEffect(async () => {
     if (loggedIn) {
         try {
-            const data = await fetchUserData();
-            setUserData(data) 
-            console.log(data)
-            setCurrentUser(data.username);
+            const data = await fetchUserData()
+            console.log(data.username)
+            if(!currentUser){
+              console.log("NOTHING HERE!!!")
+            }else{
+              setCurrentUser(data.username);
+            }
 
         } catch (error) {
             console.error(error);
@@ -47,7 +49,6 @@ function App() {
                         clearToken();
                         //setUsername(null);
                         setLoggedIn(null);
-                        setUserData(null)
                         setAuthorized(null)
                         setCurrentUser(null)
                     }}

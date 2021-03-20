@@ -16,7 +16,7 @@ const Routines = () =>{
     return(
         <div>
         <h1>Welcome to Routines</h1>
-         {grabbedRoutines?.map((routine, index) => { // ADD ACTIVITIES
+         {grabbedRoutines?.map((routine, index) => { 
             return (
                <div key={index}>
                     <h2>Routine:{routine.name}:: Created by {routine.creatorName}</h2>
