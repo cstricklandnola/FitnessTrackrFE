@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { storeToken } from "../auth";
+import {Redirect} from "react-router-dom"
 
 const Login = (props) => {
   const [user, setUser] = useState("");
-  const { setAuthorized, setCurrentUser, currentUser } = props;
+  const { setAuthorized, setCurrentUser, currentUser, loggedIn, setLoggedIn } = props;
 
   function helperHandleSubmit(e) {
     setUser({ ...user, password: e.target.value });
     setCurrentUser(user.username);
-    console.log(currentUser);
+    /* console.log(currentUser); */
   }
 
   const handleSubmit = (evt) => {
@@ -19,38 +21,43 @@ const Login = (props) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user }),
+        body: JSON.stringify({ username: user.username, password: user.password }),
       }
     )
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
 
-        if (result.success) {
-          alert("Logged in.");
-          setAuthorized(result.data.token);
+        if (result.message === "you're logged in!") {
+          alert(result.message);
+          setAuthorized(result.token)
+          setLoggedIn(result.token)
+          storeToken(result.token);
         } else {
-          alert("Failed to login.");
+          alert(result.message);
           
         }
       })
       .catch(console.error);
   };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <h1> Login:</h1>
-      <label>Username:</label>
-      <input
-        name="Username"
-        required
-        onChange={(e) => setUser({ ...user, username: e.target.value })}
-      />
-      <label>Password:</label>
-      <input type="password" required onChange={(e) => helperHandleSubmit(e)} />
-      <button type="submit">submit</button>
-    </form>
-  );
+  if (loggedIn) {
+    return <Redirect to="/" />
+  }else{
+    return (
+      <form onSubmit={handleSubmit}>
+        <h1> Login:</h1>
+        <label>Username:</label>
+        <input
+          name="Username"
+          required
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
+        />
+        <label>Password:</label>
+        <input type="password" required onChange={(e) => helperHandleSubmit(e)} />
+        <button type="submit">submit</button>
+      </form>
+    );
+  }
 };
 
 export default Login;

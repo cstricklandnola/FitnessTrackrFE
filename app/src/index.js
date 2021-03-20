@@ -1,6 +1,9 @@
-import React, {useState} from 'react';
+//import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import {default as App} from './App';
+;
+/*
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 
 import {
@@ -19,7 +22,7 @@ function App() {
   
   return (
     <Router>
-      {/* <Header /> */}
+      {/* <Header /> *//*}
             <div>
         <nav>
           <ul>
@@ -76,6 +79,7 @@ export default App;
 
 
 
+ */
 ReactDOM.render(
     <App />,
     document.getElementById('root')
