@@ -6,6 +6,9 @@ const MyRoutines = ({loggedIn, currentUser}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const getUserRoutines = async () => {
     
+        if(!currentUser){
+            return
+        }
         try{
             const routines  = await fetchUserRoutines(currentUser); //<--change to currentUser
             console.log(routines)
@@ -14,7 +17,7 @@ const MyRoutines = ({loggedIn, currentUser}) => {
         }
     }
 
-    useEffect(getUserRoutines, [])
+    useEffect(getUserRoutines, [currentUser])
     
 
     if(!loggedIn){

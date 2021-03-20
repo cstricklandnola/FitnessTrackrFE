@@ -29,6 +29,7 @@ export const fetchUserRoutines = async (username) => {
                 
             }
         });
+        console.log(response)
         const data = await response.json();
 
         return data
@@ -41,10 +42,12 @@ export const fetchUserRoutines = async (username) => {
 }
 
 export const createRoutines = async () => {
-    /* try {
-        const response = await fetch(`${baseURL}/users/${user}/routines`, {
+    try {
+        const response = await fetch(`${baseURL}routines`, {
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         });
         const data = await response.json();
@@ -53,7 +56,7 @@ export const createRoutines = async () => {
 
     } catch (error) {
         console.error(error);
-    }     */
+    }    
 }
 
 export const fetchAllRoutines = async () => {
