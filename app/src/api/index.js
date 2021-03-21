@@ -92,3 +92,22 @@ export const fetchAllActivites = async () => {
     }    
 
 }
+
+export const applyActivityToRoutine = async (routineId, activityIdV, countV, durationV) => {
+
+    try {
+        const response = await fetch(`${baseURL}/routines/${routineId}/activities`, {
+            method: "POST",
+            body: JSON.stringify({ 
+                activityId: activityIdV, 
+                count: countV,
+                duration: durationV})
+        });
+        const data = await response.json();
+        return data
+
+    } catch (error) {
+        console.error(error);
+    }    
+
+}

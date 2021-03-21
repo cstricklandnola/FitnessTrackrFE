@@ -4,11 +4,15 @@ import {fetchUserRoutines, fetchAllActivites} from "../../api"
 
 const MyRoutines = ({loggedIn, currentUser, activities}) => {
     const [userRoutines, setUserRoutines] = useState()
-    const [activityId, setActivityId] = useState()
+    const [activityId, setActivityId] = useState();
+    const[durationCount, setDurationCount] = useState();
     
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log(activityId)
+        console.log (durationCount.duration)
+        console.log(durationCount.count)
+
+
 
 
     }
@@ -40,6 +44,7 @@ const MyRoutines = ({loggedIn, currentUser, activities}) => {
         
             <Link className="MakeRoutineLink" to= '/createRoutine'>Create a Routine</Link>
             {userRoutines ? userRoutines?.map((routine, index) => { // ADD ACTIVITIES
+                const routineId = routine.id
                 return (
                    <div key={index}>
                         <h2>{routine.name}</h2>
@@ -74,12 +79,14 @@ const MyRoutines = ({loggedIn, currentUser, activities}) => {
                                 )}
                                 )
                             }    
-                            
-
                             </select>
                             <div>
+                                <label>Count</label>
+                                <input type='text' placeholder='Count' onChange={(e) => setDurationCount({ ...durationCount, count: e.target.value })} />
+                            </div>
+                            <div>
                                 <label>Duration</label>
-                                <input type='text' placeholder='Duration' />
+                                <input type='text' placeholder='Duration' onChange={(e) => setDurationCount({ ...durationCount, duration: e.target.value })} />
                             </div>
                             <button className = "submitButton" type='submit'>Submit</button>
                     </form>
