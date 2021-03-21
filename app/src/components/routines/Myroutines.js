@@ -1,17 +1,35 @@
 import {Redirect, Link} from "react-router-dom"
 import {useEffect, useState} from "react"
-import {fetchUserRoutines, fetchAllActivites} from "../../api"
+import {fetchUserRoutines, applyActivityToRoutine} from "../../api"
 
 const MyRoutines = ({loggedIn, currentUser, activities}) => {
     const [userRoutines, setUserRoutines] = useState()
     const [activityId, setActivityId] = useState();
     const[durationCount, setDurationCount] = useState();
-    
-    const handleSubmit = (event) => {
+    const [routineId, setRoutineId] = useState();
+    const[hack, setHack] = useState(1);
+    /* const[showUpdate, setShowUpdate] =  */
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        console.log (durationCount.duration)
-        console.log(durationCount.count)
-
+        const {duration,count} = durationCount;
+        if(duration||count != 1){
+           return alert("Make sure to fill out all fields with numbers")
+        }
+        
+        try{
+        const response = await applyActivityToRoutine(routineId, activityId, count, duration)
+        console.log(response)
+        if(!response.id){
+           return alert("Something went wrong")
+            
+        }
+        setRoutineId(null)
+        setDurationCount(null)
+        setActivityId(null)
+        setHack(hack+1)
+        }catch(error) {console.error(error)}
+        
+        
 
 
 
@@ -25,13 +43,14 @@ const MyRoutines = ({loggedIn, currentUser, activities}) => {
         try{
             const routines  = await fetchUserRoutines(currentUser); //<--change to currentUser
             setUserRoutines(routines)
+            console.log(routines)
             console.log(activities)
             
         }catch (error) {console.error(error)
         }
     }
 
-    useEffect(getUserRoutines, [currentUser, activities])
+    useEffect(getUserRoutines, [currentUser, activities, hack])
     
 
     if(!loggedIn){
@@ -44,7 +63,6 @@ const MyRoutines = ({loggedIn, currentUser, activities}) => {
         
             <Link className="MakeRoutineLink" to= '/createRoutine'>Create a Routine</Link>
             {userRoutines ? userRoutines?.map((routine, index) => { // ADD ACTIVITIES
-                const routineId = routine.id
                 return (
                    <div key={index}>
                         <h2>{routine.name}</h2>
@@ -68,9 +86,9 @@ const MyRoutines = ({loggedIn, currentUser, activities}) => {
                             id="select-activity"
                             value={activityId} //set to id 
                             onChange={(event) => {
-
-                                return setActivityId(event.target.value)
-                                
+                                setRoutineId(routine.id)
+                                setActivityId(event.target.value)
+                                return 
                                 } 
                             }>
                             <option value = "null" >Select an activity to add</option>   
@@ -82,11 +100,11 @@ const MyRoutines = ({loggedIn, currentUser, activities}) => {
                             </select>
                             <div>
                                 <label>Count</label>
-                                <input type='text' placeholder='Count' onChange={(e) => setDurationCount({ ...durationCount, count: e.target.value })} />
+                                <input type='number' min="1" placeholder='Count' onChange={(e) => setDurationCount({ ...durationCount, count: e.target.value })} />
                             </div>
                             <div>
                                 <label>Duration</label>
-                                <input type='text' placeholder='Duration' onChange={(e) => setDurationCount({ ...durationCount, duration: e.target.value })} />
+                                <input type='number' min="1" placeholder='Duration' onChange={(e) => setDurationCount({ ...durationCount, duration: e.target.value })} />
                             </div>
                             <button className = "submitButton" type='submit'>Submit</button>
                     </form>
