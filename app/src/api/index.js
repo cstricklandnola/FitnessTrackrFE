@@ -40,12 +40,16 @@ export const fetchUserRoutines = async (username) => {
 
 }
 
-export const createRoutines = async () => {
-    /* try {
-        const response = await fetch(`${baseURL}/users/${user}/routines`, {
+export const createRoutines = async (routine) => {
+    try {
+        const response = await fetch(`${baseURL}routines`, {
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-            }
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(routine) 
+            
         });
         const data = await response.json();
 
@@ -53,7 +57,7 @@ export const createRoutines = async () => {
 
     } catch (error) {
         console.error(error);
-    }     */
+    }    
 }
 
 export const fetchAllRoutines = async () => {
@@ -70,4 +74,21 @@ export const fetchAllRoutines = async () => {
     } catch (error) {
         console.error(error);
     }    
+}
+
+export const fetchAllActivites = async () => {
+
+    try {
+        const response = await fetch(`${baseURL}activities`, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+        return data
+
+    } catch (error) {
+        console.error(error);
+    }    
+
 }
