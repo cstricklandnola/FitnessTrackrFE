@@ -19,7 +19,7 @@ const Routines = () =>{
         <div class ="results">
          {grabbedRoutines?.map((routine, index) => { 
             return (
-               <div class = "listing" key={index}>
+               <div className = "listing" key={index}>
                     <h2>Routine:{routine.name}:: Created by {routine.creatorName}</h2>
                     <hr></hr>
                     <h4>Goal:{routine.goal}</h4>
@@ -27,7 +27,7 @@ const Routines = () =>{
                     {routine.activities[0] ?
                         routine.activities.map((activity1, index) => {
                             return(
-                                <h6><ul key={index}>
+                                <h6 key={index}><ul >
                                     <li>Activity: {activity1.name}</li>
                                     <li>Description: {activity1.description}</li>
                                     <li>Duration:{activity1.duration}</li>

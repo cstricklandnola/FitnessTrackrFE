@@ -4,8 +4,8 @@ import Routines from './routines/Routines';
 
 const Activities = ({activities, loggedIn, setActivities}) =>{
     const[newActivity, setNewActivity, ] = useState()
-    const[activityRoutines, setActivityRoutines] = useState(false);
-    const[activityId, setActivityId]= useState()
+    /* const[activityRoutines, setActivityRoutines] = useState(false);
+    const[activityId, setActivityId]= useState() */
     const handleSubmit = async (event) =>{
         try{
             event.preventDefault()
@@ -25,12 +25,12 @@ const Activities = ({activities, loggedIn, setActivities}) =>{
 
     }
 
-    const activityHandle = async (event) => {
+    /* const activityHandle = async (event) => {
         event.preventDefault()
         console.log(event.target.id)
         setActivityId(event.target.id)
         setActivityRoutines(await fetchRoutinesByActivity(activityId))
-    }
+    } */
     //useEffect( , [activityRoutines])
     return ( <div>
         {loggedIn ? 
@@ -56,10 +56,10 @@ const Activities = ({activities, loggedIn, setActivities}) =>{
         {activities?.map((activity, index) => {
        return (
        <div key={index}>
-        <b>Click Activity name to view affiliated routines</b>
-        <h2 id ={activity.id} onClick={activityHandle} >Activity :: {activity.name}</h2>
+        {/* <b>Click Activity name to view affiliated routines</b> */}
+        <h2 /* id ={activity.id} onClick={activityHandle}  */>Activity :: {activity.name}</h2>
         <h3>Description ::</h3> <p>{activity.description}</p>
-        {activity.id && activityId ? 
+        {/* {activity.id && activityId ? 
         <ul>
             {activityRoutines?.map((routine, index) => {
                 return(
@@ -68,7 +68,7 @@ const Activities = ({activities, loggedIn, setActivities}) =>{
                     </li>
                 )})}
         </ul>   
-        : null}
+        : null} */}
         
            
         
