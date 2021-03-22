@@ -12,6 +12,7 @@ const Login = (props) => {
     /* console.log(currentUser); */
   }
 
+  
   const handleSubmit = (evt) => {
     evt.preventDefault();
     fetch(

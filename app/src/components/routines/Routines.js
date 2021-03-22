@@ -16,21 +16,23 @@ const Routines = () =>{
     return(
         <div>
         <h1>Welcome to Routines</h1>
+        <div class ="results">
          {grabbedRoutines?.map((routine, index) => { 
             return (
-               <div key={index}>
+               <div class = "listing" key={index}>
                     <h2>Routine:{routine.name}:: Created by {routine.creatorName}</h2>
-                    <p>Goal:{routine.goal}</p>
+                    <hr></hr>
+                    <h4>Goal:{routine.goal}</h4>
                     
                     {routine.activities[0] ?
                         routine.activities.map((activity1, index) => {
                             return(
-                                <ul key={index}>
+                                <h6><ul key={index}>
                                     <li>Activity: {activity1.name}</li>
                                     <li>Description: {activity1.description}</li>
                                     <li>Duration:{activity1.duration}</li>
                                     <li>Count:{activity1.count}</li>
-                                </ul>) 
+                                </ul></h6>) 
                         
                         }) 
                         :<b>No activities have been added to this routine</b>}
@@ -42,6 +44,7 @@ const Routines = () =>{
         
         
         })}
+        </div>
         </div>
    )
 }   
