@@ -9,7 +9,8 @@ import {
   LogOut,
   Register,
   MyRoutines,
-  Routines
+  Routines,
+  Activities
 } from "./components"
 
 const App = () => {
@@ -41,7 +42,7 @@ const App = () => {
           <Link className="Link" to= '/'>Home</Link>
           <Link className="Link" to= '/routines'>Routines</Link>
           <Link className="Link" to= '/myRoutines'>My Routines</Link>
-          <Link className="Link" to= '/activites'>Activites</Link>
+          <Link className="Link" to= '/activities'>Activites</Link>
           {/* !authorized  */ !loggedIn ? (<Link className="Link" to= '/Login'>Login</Link>) : null}
           {/* !authorized  */ !loggedIn ? (<Link className="Link" to= '/Register'>Sign Up</Link>) : null}
           {loggedIn ? <Link className="Link" onClick={() => {
@@ -89,7 +90,11 @@ const App = () => {
               />
           </Route>
           <Route path='/activities'>
-            {/* Activities component */}
+          <Activities
+             loggedIn={loggedIn}
+             currentUser={currentUser}
+             activities={activities}
+              />
           </Route>
           <Route path='/createRoutine'>
             <MakeRoutine />

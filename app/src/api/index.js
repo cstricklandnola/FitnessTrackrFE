@@ -134,3 +134,23 @@ export const updateRoutine = async (routineId, obj) =>{
 
 
 }
+
+export const createActivity = async (activity) => {
+    try {
+        const response = await fetch(`${baseURL}activities`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(activity) 
+            
+        });
+        const data = await response.json();
+
+        return data
+
+    } catch (error) {
+        console.error(error);
+    }     
+}
