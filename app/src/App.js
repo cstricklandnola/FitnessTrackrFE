@@ -94,6 +94,7 @@ const App = () => {
              loggedIn={loggedIn}
              currentUser={currentUser}
              activities={activities}
+             setActivities={setActivities}
               />
           </Route>
           <Route path='/createRoutine'>

@@ -1,19 +1,25 @@
 import {useEffect, useState} from 'react'
-import {createActivity} from '../api'
-const Activities = ({activities, loggedIn}) =>{
+import {createActivity, fetchAllActivites} from '../api'
+
+const Activities = ({activities, loggedIn, setActivities}) =>{
     const [newActivity, setNewActivity] = useState()
     const[message, setMessage] = useState();
     const handleSubmit = async (event) =>{
-        event.preventDefault()
-        const response = await createActivity(newActivity) 
-        console.log(response)
-        if(response.id){
+        try{
+            event.preventDefault()
+            const response = await createActivity(newActivity) 
+            console.log(response)
+            if(response.id){
             alert("success creating activity")
-            return setMessage(response)
+                setActivities(await fetchAllActivites())
+            }else{
+                return alert(response.message)
+            }
+            }catch(error){
+                console.error(error)
+            }
             
-        }else{
-            return alert(response.message)
-        }
+        
 
     }
     
