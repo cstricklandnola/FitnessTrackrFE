@@ -4,7 +4,7 @@ import {Redirect} from "react-router-dom"
 
 const Login = (props) => {
   const [user, setUser] = useState("");
-  const { setAuthorized, setCurrentUser, currentUser, loggedIn, setLoggedIn } = props;
+  const { setAuthorized, setCurrentUser, loggedIn, setLoggedIn } = props;
 
   function helperHandleSubmit(e) {
     setUser({ ...user, password: e.target.value });
@@ -27,7 +27,6 @@ const Login = (props) => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
 
         if (result.message === "you're logged in!") {
           alert(result.message);

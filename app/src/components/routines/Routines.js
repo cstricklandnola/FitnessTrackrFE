@@ -12,11 +12,10 @@ const Routines = () =>{
     }
 
     useEffect( getAllRoutines, []);
-    console.log(grabbedRoutines)
     return(
         <div>
         <h1>Welcome to Routines</h1>
-        <div class ="results">
+        <div className ="results">
          {grabbedRoutines?.map((routine, index) => { 
             return (
                <div className = "listing" key={index}>

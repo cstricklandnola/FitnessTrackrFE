@@ -172,9 +172,6 @@ export const updateActivitiesApi = async (id, count, duration) => {
 };
 
 export const deleteActivityApi = async (id) => {
-  let payload = {};
-  console.log(id);
-  console.log(token);
 
   try {
     const response = await fetch(`${baseURL}/routine_activities/${id}`, {

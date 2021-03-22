@@ -9,7 +9,8 @@ import {
   Register,
   MyRoutines,
   Routines,
-  Activities
+  Activities,
+  Home
 } from "./components"
 
 const App = () => {
@@ -57,26 +58,23 @@ const App = () => {
       <main>
         <Switch>
           <Route exact path= '/'>
-            {/* HomePage component  */}
+            <Home />
           </Route>
           <Route path='/Login'>
-         {/*  {!authorized ? ( */}
               <Login
                 loggedIn={loggedIn}
                 setLoggedIn={setLoggedIn}
-                currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
                 setAuthorized={setAuthorized}
                 authorized={authorized}
               />
-           {/*  ) : null} */}
           </Route>
           <Route path='/Register'>
             {/* {!loggedIn ? */} <Register
              setAuthorized={setAuthorized} 
              loggedIn={loggedIn}
              setLoggedIn={setLoggedIn}
-             /> {/* : null} */}
+             /> 
           </Route>
           <Route path='/routines'>
             <Routines />

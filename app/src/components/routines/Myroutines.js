@@ -91,8 +91,6 @@ const MyRoutines = ({ loggedIn, currentUser, activities, setActivities }) => {
     try {
       const routines = await fetchUserRoutines(currentUser); //<--change to currentUser
       setUserRoutines(routines);
-      console.log(routines);
-      console.log(activities);
     } catch (error) {
       console.error(error);
     }

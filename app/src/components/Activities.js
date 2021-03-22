@@ -1,6 +1,5 @@
-import {useEffect, useState} from 'react'
-import {createActivity, fetchAllActivites, fetchRoutinesByActivity} from '../api'
-import Routines from './routines/Routines';
+import {/* useEffect,  */useState} from 'react'
+import {createActivity, fetchAllActivites, /* fetchRoutinesByActivity */} from '../api'
 
 const Activities = ({activities, loggedIn, setActivities}) =>{
     const[newActivity, setNewActivity, ] = useState()
