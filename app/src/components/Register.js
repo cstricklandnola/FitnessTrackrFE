@@ -7,7 +7,8 @@ const Register = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
+    console.log (user.username)
+    console.log (user.password)
     fetch(
       "http://fitnesstrac-kr.herokuapp.com/api/users/register",
       {
@@ -57,3 +58,5 @@ const Register = (props) => {
 };
 
 export default Register;
+
+
