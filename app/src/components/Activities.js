@@ -31,7 +31,7 @@ const Activities = ({activities, loggedIn, setActivities}) =>{
         setActivityId(event.target.id)
         setActivityRoutines(await fetchRoutinesByActivity(activityId))
     }
-    useEffect( , [activityRoutines])
+    //useEffect( , [activityRoutines])
     return ( <div>
         {loggedIn ? 
     <form onSubmit={handleSubmit}>

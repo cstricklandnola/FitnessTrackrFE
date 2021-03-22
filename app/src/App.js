@@ -6,7 +6,6 @@ import {getToken, clearToken} from "./auth"
 import{fetchUserData, fetchAllActivites} from "./api"
 import {
   Login,
-  LogOut,
   Register,
   MyRoutines,
   Routines,
