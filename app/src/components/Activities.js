@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react'
-import {createActivity, fetchAllActivites} from '../api'
+import {createActivity, fetchAllActivites, fetchRoutinesByActivity} from '../api'
+import Routines from './routines/Routines';
 
 const Activities = ({activities, loggedIn, setActivities}) =>{
-    const [newActivity, setNewActivity] = useState()
-    const[message, setMessage] = useState();
+    const[newActivity, setNewActivity, ] = useState()
+    const[activityRoutines, setActivityRoutines] = useState(false);
+    const[activityId, setActivityId]= useState()
     const handleSubmit = async (event) =>{
         try{
             event.preventDefault()
@@ -22,7 +24,14 @@ const Activities = ({activities, loggedIn, setActivities}) =>{
         
 
     }
-    
+
+    const activityHandle = async (event) => {
+        event.preventDefault()
+        console.log(event.target.id)
+        setActivityId(event.target.id)
+        setActivityRoutines(await fetchRoutinesByActivity(activityId))
+    }
+    useEffect( , [activityRoutines])
     return ( <div>
         {loggedIn ? 
     <form onSubmit={handleSubmit}>
@@ -45,9 +54,24 @@ const Activities = ({activities, loggedIn, setActivities}) =>{
        
             <h1>Activities</h1>
         {activities?.map((activity, index) => {
-       return (<div key={index}>
-        <h2>Activity :: {activity.name}</h2>
+       return (
+       <div key={index}>
+        <b>Click Activity name to view affiliated routines</b>
+        <h2 id ={activity.id} onClick={activityHandle} >Activity :: {activity.name}</h2>
         <h3>Description ::</h3> <p>{activity.description}</p>
+        {activity.id && activityId ? 
+        <ul>
+            {activityRoutines?.map((routine, index) => {
+                return(
+                    <li index={index}>
+                        Routine: {routine.name}
+                    </li>
+                )})}
+        </ul>   
+        : null}
+        
+           
+        
        </div>)
     })}
     </div>

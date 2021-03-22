@@ -1,13 +1,12 @@
 import {Redirect, Link} from "react-router-dom"
 import {useEffect, useState} from "react"
-import {fetchUserRoutines, applyActivityToRoutine} from "../../api"
+import {fetchUserRoutines, applyActivityToRoutine, fetchAllRoutines} from "../../api"
 
 const MyRoutines = ({loggedIn, currentUser, activities}) => {
     const [userRoutines, setUserRoutines] = useState()
     const [activityId, setActivityId] = useState();
     const[durationCount, setDurationCount] = useState();
     const [routineId, setRoutineId] = useState();
-    const[hack, setHack] = useState(1);
     /* const[showUpdate, setShowUpdate] =  */
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -26,7 +25,7 @@ const MyRoutines = ({loggedIn, currentUser, activities}) => {
         setRoutineId(null)
         setDurationCount(null)
         setActivityId(null)
-        setHack(hack+1)
+        setUserRoutines(await fetchUserRoutines(currentUser))
         }catch(error) {console.error(error)}
         
         
@@ -50,7 +49,7 @@ const MyRoutines = ({loggedIn, currentUser, activities}) => {
         }
     }
 
-    useEffect(getUserRoutines, [currentUser, activities, hack])
+    useEffect(getUserRoutines, [currentUser, activities])
     
 
     if(!loggedIn){

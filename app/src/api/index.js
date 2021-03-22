@@ -154,3 +154,24 @@ export const createActivity = async (activity) => {
         console.error(error);
     }     
 }
+
+export const fetchRoutinesByActivity = async (activityId) => {
+    
+    try {
+        const response = await fetch(`${baseURL}activities/${activityId}/routines`, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+
+        return data
+
+    } catch (error) {
+        console.error(error);
+    }    
+
+
+
+}
+
