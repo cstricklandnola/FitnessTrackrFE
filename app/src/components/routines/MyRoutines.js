@@ -7,15 +7,14 @@ import {
   deleteActivityApi,
   updateActivitiesApi,
   deleteRoutineApi,
-  fetchAllActivites
 } from "../../api";
 
-const MyRoutines = ({ loggedIn, currentUser, activities, setActivities }) => {
+const MyRoutines = ({ loggedIn, currentUser, activities }) => {
   const [userRoutines, setUserRoutines] = useState();
   const [activityId, setActivityId] = useState();
   const [durationCount, setDurationCount] = useState();
   const [routineId, setRoutineId] = useState();
-
+  const [hack, setHack] = useState(1);
 
 
   /* const[showUpdate, setShowUpdate] =  */
@@ -37,7 +36,7 @@ const MyRoutines = ({ loggedIn, currentUser, activities, setActivities }) => {
       setRoutineId(null);
       setDurationCount(null);
       setActivityId(null);
-      setActivities(await fetchAllActivites())
+      setHack(hack + 1);
     } catch (error) {
       console.error(error);
     }
@@ -47,8 +46,7 @@ const MyRoutines = ({ loggedIn, currentUser, activities, setActivities }) => {
     
 
     try {
-      await updateRoutineApi(name, goal, id); //<--change to currentUser
-      setActivities(await fetchAllActivites())
+      const routines = await updateRoutineApi(name, goal, id); //<--change to currentUser
     } catch (error) {
       console.error(error);
     }
@@ -56,8 +54,7 @@ const MyRoutines = ({ loggedIn, currentUser, activities, setActivities }) => {
 
   const handleSubmitDeleteRoutine= async (id) => {
     try {
-        await deleteRoutineApi(id); //<--change to currentUser
-        setActivities(await fetchAllActivites())
+      const routines = await deleteRoutineApi(id); //<--change to currentUser
     } catch (error) {
       console.error(error);
     }
@@ -65,10 +62,8 @@ const MyRoutines = ({ loggedIn, currentUser, activities, setActivities }) => {
 
   const handleSubmitDeleteActivity = async (id) => {
       console.log (id)
-      
     try {
-      await deleteActivityApi(id); //<--change to currentUser
-      setActivities(await fetchAllActivites())
+      const activity = await deleteActivityApi(id); //<--change to currentUser
     } catch (error) {
       console.error(error);
     }
@@ -76,8 +71,7 @@ const MyRoutines = ({ loggedIn, currentUser, activities, setActivities }) => {
 
   const handleSubmitUpdateActivities = async (routineId, count, duration) => {
     try {
-      await updateActivitiesApi(routineId, count, duration); //<--change to currentUser
-      setActivities(await fetchAllActivites())
+      const routines = await updateActivitiesApi(routineId, count, duration); //<--change to currentUser
     } catch (error) {
       console.error(error);
     }
@@ -91,12 +85,14 @@ const MyRoutines = ({ loggedIn, currentUser, activities, setActivities }) => {
     try {
       const routines = await fetchUserRoutines(currentUser); //<--change to currentUser
       setUserRoutines(routines);
+      console.log(routines);
+      console.log(activities);
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(getUserRoutines, [currentUser, activities]);
+  useEffect(getUserRoutines, [currentUser, activities, hack]);
 
   if (!loggedIn) {
     return <Redirect to="/" />;

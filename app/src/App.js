@@ -3,30 +3,30 @@ import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Link, Switch, Route} from "react-router-dom"
 import {default as MakeRoutine} from "./components/routines/MakeRoutine"
 import {getToken, clearToken} from "./auth"
-import{fetchUserData} from "./api"
+import{fetchUserData, fetchAllActivites} from "./api"
 import {
   Login,
-  LogOut,
   Register,
   MyRoutines,
-  Routines
+  Routines,
+  Activities,
+  Home
 } from "./components"
 
 const App = () => {
   const [authorized, setAuthorized] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
   const [loggedIn, setLoggedIn] = useState(getToken());
+  const [activities, setActivities] = useState(null);
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     if (loggedIn) {
         try {
-            const data = await fetchUserData()
-            console.log(data.username)
-            if(!currentUser){
-              console.log("NOTHING HERE!!!")
-            }else{
-              setCurrentUser(data.username);
-            }
+            const data = await fetchUserData();
+            setCurrentUser(data.username);
+            const grabbedActivities = await fetchAllActivites();
+            setActivities(grabbedActivities);
 
         } catch (error) {
             console.error(error);
@@ -42,7 +42,7 @@ const App = () => {
           <Link className="Link" to= '/'>Home</Link>
           <Link className="Link" to= '/routines'>Routines</Link>
           <Link className="Link" to= '/myRoutines'>My Routines</Link>
-          <Link className="Link" to= '/activites'>Activites</Link>
+          <Link className="Link" to= '/activities'>Activites</Link>
           {/* !authorized  */ !loggedIn ? (<Link className="Link" to= '/Login'>Login</Link>) : null}
           {/* !authorized  */ !loggedIn ? (<Link className="Link" to= '/Register'>Sign Up</Link>) : null}
           {loggedIn ? <Link className="Link" onClick={() => {
@@ -58,26 +58,23 @@ const App = () => {
       <main>
         <Switch>
           <Route exact path= '/'>
-            {/* HomePage component  */}
+            <Home />
           </Route>
           <Route path='/Login'>
-         {/*  {!authorized ? ( */}
               <Login
                 loggedIn={loggedIn}
                 setLoggedIn={setLoggedIn}
-                currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
                 setAuthorized={setAuthorized}
                 authorized={authorized}
               />
-           {/*  ) : null} */}
           </Route>
           <Route path='/Register'>
             {/* {!loggedIn ? */} <Register
              setAuthorized={setAuthorized} 
              loggedIn={loggedIn}
              setLoggedIn={setLoggedIn}
-             /> {/* : null} */}
+             /> 
           </Route>
           <Route path='/routines'>
             <Routines />
@@ -86,10 +83,17 @@ const App = () => {
              <MyRoutines 
              loggedIn={loggedIn}
              currentUser={currentUser}
+             activities={activities}
+          setActivities={setActivities}
               />
           </Route>
           <Route path='/activities'>
-            {/* Activities component */}
+          <Activities
+             loggedIn={loggedIn}
+             currentUser={currentUser}
+             activities={activities}
+             setActivities={setActivities}
+              />
           </Route>
           <Route path='/createRoutine'>
             <MakeRoutine />

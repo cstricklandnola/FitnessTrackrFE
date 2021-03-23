@@ -12,25 +12,29 @@ const Routines = () =>{
     }
 
     useEffect( getAllRoutines, []);
-    console.log(grabbedRoutines)
     return(
         <div>
         <h1>Welcome to Routines</h1>
+        <div className ="results">
          {grabbedRoutines?.map((routine, index) => { 
             return (
-               <div key={index}>
+               <div className = "listing" key={index}>
                     <h2>Routine:{routine.name}:: Created by {routine.creatorName}</h2>
-                    <p>Goal:{routine.goal}</p>
+                    <hr></hr>
+                    <h4>Goal:{routine.goal}</h4>
                     
-                    {routine.activities[0] ? routine.activities.map((activity, index) => {
-                        return(
-                        <div key={index}>
-                            <b>Activity: {activity.name}</b>
-                            <p>Description: {activity.description}</p>
-                            <p>Duration:{activity.duration}</p>
-                            <p>Count:{activity.count}</p>
-                        </div>)
-                    }):<b>No activities have been added to this routine</b>}  
+                    {routine.activities[0] ?
+                        routine.activities.map((activity1, index) => {
+                            return(
+                                <h6 key={index}><ul >
+                                    <li>Activity: {activity1.name}</li>
+                                    <li>Description: {activity1.description}</li>
+                                    <li>Duration:{activity1.duration}</li>
+                                    <li>Count:{activity1.count}</li>
+                                </ul></h6>) 
+                        
+                        }) 
+                        :<b>No activities have been added to this routine</b>}
                     
                </div> 
             ) 
@@ -38,9 +42,10 @@ const Routines = () =>{
         
         
         
-        })} 
+        })}
         </div>
-    )
-}
+        </div>
+   )
+}   
 
 export default Routines
